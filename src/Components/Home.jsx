@@ -10,11 +10,12 @@ const Home = () => {
     const allJobs = JSON.parse(localStorage.getItem('jobs') || '[]')
     let [navS, setNavS] = useState('')
     const update = ()=>{
-
         if (navS) {
+            const allJob = JSON.parse(localStorage.getItem('jobs') || '[]')
+            const filtered = allJob.filter(all => all.status === navS);
             console.log('runed', navS)
-           filter(navS)
-           filter(navS)
+            console.log(filtered)
+            setRetrivedJobs(filtered)
         }else{
             setRetrivedJobs(JSON.parse(localStorage.getItem('jobs') || '[]'))
             console.log(('not runed', navS))
@@ -27,7 +28,6 @@ const Home = () => {
 
     const filter = (status)=>{
         const filtered = allJobs.filter(job => job.status == status)
-        console.log(filtered)
         setRetrivedJobs(filtered)
         setNavS(status)
     }
@@ -63,14 +63,15 @@ const Home = () => {
                 id={editValues.id}
             />
         }
-      <nav className='h-[100vh] bg-[#2B8CFF] hidden md:flex'>
-        <div className='flex flex-col items-center  p-1 ml-3 mr-8 mt-16 text-white'>
+      <nav className='h-[100vh] bg-[#2B8CFF] md:flex'>
+        <div className='flex flex-col items-center  p-1 ml-3 mr-3 md:mr-8 mt-16 text-white'>
 
          <main className='h-100 flex flex-col items-center justify-center space-y-6'>
-            <div className={`flex items-center space-x-2 w-12/12 justify-between hover:text-blue-300 hover:cursor-pointer`}
+            <div className={`flex items-center space-x-2 w-12/12 justify-between hover:text-blue-300 hover:cursor-pointer
+            ${navS == '' && 'text-blue-300'}`}
             onClick={()=> {setRetrivedJobs(allJobs); setNavS('')}}
             >
-                <img src="https://img.icons8.com/?size=100&id=5moSvLHPSm17&format=png&color=ffffff" alt="" width={26} className='rounded-lg'/> <span className=''>All</span>
+                <img src={`https://img.icons8.com/?size=100&id=5moSvLHPSm17&format=png&color=${navS == '' ? '8EC5FF': 'ffffff'}`} alt="" width={26} className='rounded-lg'/> <span className='hidden md:block'>All</span>
             </div>
 
             <div className={`flex items-center space-x-2 w-12/12 justify-between 
@@ -78,7 +79,7 @@ const Home = () => {
             `}
             onClick={()=> filter('Applied')}
             >
-                <img src="https://img.icons8.com/?size=100&id=83144&format=png&color=ffffff" alt="" width={26} className='rounded-lg'/> <span>Applied</span>
+                <img src={`https://img.icons8.com/?size=100&id=83144&format=png&color=${navS == 'Applied' ? '8EC5FF': 'ffffff'}`} alt="" width={26} className='rounded-lg'/> <span className='hidden md:block'>Applied</span>
             </div>
 
             <div className={`flex items-center space-x-2 w-12/12 justify-between
@@ -86,7 +87,7 @@ const Home = () => {
             `}
             onClick={()=> filter('Interviewing')}
             >
-                <img src="https://img.icons8.com/?size=100&id=0zlrkLWzxA4o&format=png&color=ffffff" alt="" width={26} className='rounded-lg'/> <span>Interviewing</span>
+                <img src={`https://img.icons8.com/?size=100&id=0zlrkLWzxA4o&format=png&color=${navS == 'Interviewing' ? '8EC5FF': 'ffffff'}`} alt="" width={26} className='rounded-lg'/> <span className='hidden md:block'>Interviewing</span>
             </div>
 
 
@@ -95,7 +96,7 @@ const Home = () => {
             `}
             onClick={()=> filter('Offer Received')}
             >
-                <img src="https://img.icons8.com/?size=100&id=RA3LIMWdtwsO&format=png&color=ffffff" alt="" width={26} className='rounded-lg'/> <span>received</span>
+                <img src={`https://img.icons8.com/?size=100&id=RA3LIMWdtwsO&format=png&color=${navS == 'Offer Received' ? '8EC5FF': 'ffffff'}`} alt="" width={26} className='rounded-lg'/> <span className='hidden md:block'>received</span>
             </div>
          </main>
            
@@ -107,11 +108,11 @@ const Home = () => {
 
         <nav className='shadow-md p-2 flex items-center flex-row-reverse justify-between'>
             <div className='flex items-center'>
-                <div className='h-[50px] w-[50px] bg-blue-500 flex items-center justify-center text-2xl font-bold text-white rounded-4xl'>A</div>
-                <div className='px-2 text-lg'>Abdullahi</div>
+                <div className='md:h-[50px] h-[40px] md:w-[50px] w-[40px] bg-blue-500 flex items-center justify-center text-2xl font-bold text-white rounded-4xl'>A</div>
+                <div className='px-2 text-md md:text-lg'>Abdullahi</div>
             </div>
         <   div className='flex items-center'>
-                <img src="/src/images/tt-logor.png" alt="" width={50} className='rounded-lg'/> <span className='text-2xl font-bold'>Tracker</span>
+                <img src="/src/images/tt-logor.png" alt="" width={50} className='rounded-lg'/> <span className='md:text-2xl text-lg font-bold'>Tracker</span>
             </div>
         </nav>
 

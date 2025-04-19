@@ -27,7 +27,6 @@ const JobForm = (props) => {
             const locatedJobIndex = retrivedJobs.findIndex(job => job.id == props.id)
             
             retrivedJobs.splice(locatedJobIndex, 1,  jobDetails)
-            console.log(retrivedJobs)
             localStorage.setItem('jobs', JSON.stringify(retrivedJobs))
             props.update()
             props.close()
